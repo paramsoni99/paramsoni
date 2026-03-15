@@ -29,7 +29,7 @@ export function ExperienceTimeline({ experiences }: ExperienceTimelineProps) {
       <div
         className="absolute inset-0 -z-10 opacity-30"
         style={{
-          background: 'radial-gradient(ellipse at 50% 100%, oklch(0.65 0.22 310 / 0.08), transparent 60%)',
+          background: 'radial-gradient(ellipse at 50% 100%, var(--glow-color), transparent 60%)',
         }}
       />
 
@@ -55,7 +55,7 @@ export function ExperienceTimeline({ experiences }: ExperienceTimelineProps) {
           <div
             className="absolute left-[11px] top-2 bottom-2 w-0.5 rounded-full"
             style={{
-              background: 'linear-gradient(to bottom, var(--accent), oklch(0.65 0.22 310), var(--accent))',
+              background: 'linear-gradient(to bottom, var(--accent), var(--primary), var(--accent))',
               boxShadow: '0 0 8px var(--glow-color)',
             }}
           />

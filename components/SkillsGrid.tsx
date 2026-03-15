@@ -48,7 +48,7 @@ export function SkillsGrid({ skills }: SkillsGridProps) {
       <div
         className="absolute inset-0 -z-10 opacity-30"
         style={{
-          background: 'radial-gradient(ellipse at 50% 0%, oklch(0.72 0.2 280 / 0.08), transparent 60%)',
+          background: 'radial-gradient(ellipse at 50% 0%, var(--glow-color), transparent 60%)',
         }}
       />
 

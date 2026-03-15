@@ -3,13 +3,16 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useTheme } from 'next-themes'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Sun, Moon } from 'lucide-react'
 
 export function Navigation() {
   const pathname = usePathname()
+  const { theme, setTheme, resolvedTheme } = useTheme()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   const navItems = [
     { href: '/', label: 'Home' },
@@ -18,6 +21,8 @@ export function Navigation() {
     { href: '/#experience', label: 'Experience' },
     { href: '/#contact', label: 'Contact' },
   ]
+
+  useEffect(() => setMounted(true), [])
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20)
@@ -38,13 +43,16 @@ export function Navigation() {
 
   const handleNavClick = (href: string) => {
     setIsMobileOpen(false)
-    // For hash links on the same page, scroll manually
     if (href.startsWith('/#') && pathname === '/') {
       const el = document.querySelector(href.replace('/', ''))
       if (el) {
         el.scrollIntoView({ behavior: 'smooth' })
       }
     }
+  }
+
+  const toggleTheme = () => {
+    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
   }
 
   return (
@@ -86,16 +94,56 @@ export function Navigation() {
                   )}
                 </Link>
               ))}
+
+              {/* Theme Toggle */}
+              {mounted && (
+                <button
+                  onClick={toggleTheme}
+                  className="ml-2 p-2 rounded-lg text-foreground/60 hover:text-foreground hover:bg-accent/10 transition-all"
+                  aria-label="Toggle theme"
+                >
+                  <AnimatePresence mode="wait" initial={false}>
+                    <motion.div
+                      key={resolvedTheme}
+                      initial={{ y: -10, opacity: 0, rotate: -90 }}
+                      animate={{ y: 0, opacity: 1, rotate: 0 }}
+                      exit={{ y: 10, opacity: 0, rotate: 90 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {resolvedTheme === 'dark' ? (
+                        <Sun className="w-4 h-4" />
+                      ) : (
+                        <Moon className="w-4 h-4" />
+                      )}
+                    </motion.div>
+                  </AnimatePresence>
+                </button>
+              )}
             </div>
 
-            {/* Mobile Hamburger */}
-            <button
-              onClick={() => setIsMobileOpen(!isMobileOpen)}
-              className="md:hidden p-2 rounded-lg text-foreground/80 hover:text-foreground hover:bg-accent/10 transition-colors"
-              aria-label="Toggle navigation"
-            >
-              {isMobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
+            {/* Mobile: Theme Toggle + Hamburger */}
+            <div className="flex items-center gap-1 md:hidden">
+              {mounted && (
+                <button
+                  onClick={toggleTheme}
+                  className="p-2 rounded-lg text-foreground/60 hover:text-foreground hover:bg-accent/10 transition-all"
+                  aria-label="Toggle theme"
+                >
+                  {resolvedTheme === 'dark' ? (
+                    <Sun className="w-4 h-4" />
+                  ) : (
+                    <Moon className="w-4 h-4" />
+                  )}
+                </button>
+              )}
+              <button
+                onClick={() => setIsMobileOpen(!isMobileOpen)}
+                className="p-2 rounded-lg text-foreground/80 hover:text-foreground hover:bg-accent/10 transition-colors"
+                aria-label="Toggle navigation"
+              >
+                {isMobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
+            </div>
           </div>
         </div>
       </nav>

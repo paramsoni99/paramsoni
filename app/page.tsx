@@ -128,7 +128,7 @@ export default async function Home() {
           <div
             className="absolute inset-0 -z-10 opacity-30"
             style={{
-              background: 'radial-gradient(ellipse at 50% 50%, oklch(0.72 0.2 280 / 0.06), transparent 60%)',
+              background: 'radial-gradient(ellipse at 50% 50%, var(--glow-color), transparent 60%)',
             }}
           />
           <div className="max-w-6xl mx-auto">
@@ -172,7 +172,7 @@ export default async function Home() {
         <div
           className="absolute inset-0 -z-10 opacity-30"
           style={{
-            background: 'radial-gradient(ellipse at 50% 80%, oklch(0.72 0.2 280 / 0.1), transparent 60%)',
+            background: 'radial-gradient(ellipse at 50% 80%, var(--glow-color), transparent 60%)',
           }}
         />
         <div className="max-w-2xl mx-auto text-center">
@@ -227,7 +227,7 @@ export default async function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-sm text-muted-foreground">
               © {new Date().getFullYear()}{' '}
-              <span className="gradient-text font-medium">Param Hiren Soni</span>
+              <span className="gradient-text font-medium">Param Soni</span>
               . All rights reserved.
             </p>
             <div className="flex gap-6">

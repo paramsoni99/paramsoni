@@ -20,7 +20,7 @@ export function HeroSection({ name, title, bio, tagline }: HeroProps) {
           className="absolute inset-0 animate-gradient"
           style={{
             background:
-              'linear-gradient(135deg, oklch(0.08 0.01 280), oklch(0.12 0.04 300), oklch(0.08 0.02 260), oklch(0.1 0.03 290))',
+              'linear-gradient(135deg, var(--background), color-mix(in oklch, var(--accent) 8%, var(--background)), var(--background), color-mix(in oklch, var(--primary) 6%, var(--background)))',
             backgroundSize: '400% 400%',
           }}
         />
@@ -29,14 +29,14 @@ export function HeroSection({ name, title, bio, tagline }: HeroProps) {
         <div
           className="absolute top-1/4 left-1/4 w-72 h-72 rounded-full animate-pulse-glow"
           style={{
-            background: 'radial-gradient(circle, oklch(0.72 0.2 280 / 0.15), transparent 70%)',
+            background: 'radial-gradient(circle, var(--glow-color), transparent 70%)',
             filter: 'blur(40px)',
           }}
         />
         <div
           className="absolute bottom-1/3 right-1/4 w-96 h-96 rounded-full animate-float"
           style={{
-            background: 'radial-gradient(circle, oklch(0.65 0.22 310 / 0.12), transparent 70%)',
+            background: 'radial-gradient(circle, color-mix(in oklch, var(--primary) 12%, transparent), transparent 70%)',
             filter: 'blur(50px)',
             animationDelay: '2s',
           }}
@@ -44,7 +44,7 @@ export function HeroSection({ name, title, bio, tagline }: HeroProps) {
         <div
           className="absolute top-1/2 right-1/3 w-56 h-56 rounded-full animate-pulse-glow"
           style={{
-            background: 'radial-gradient(circle, oklch(0.7 0.18 200 / 0.1), transparent 70%)',
+            background: 'radial-gradient(circle, color-mix(in oklch, var(--accent) 10%, transparent), transparent 70%)',
             filter: 'blur(35px)',
             animationDelay: '4s',
           }}
