@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Github, ExternalLink, ChevronDown } from 'lucide-react'
 import { urlFor } from '@/lib/sanity'
 
@@ -36,7 +36,6 @@ export function ProjectCard({
   useEffect(() => {
     const el = descriptionRef.current
     if (el) {
-      // Check if the text content overflows (i.e. is being clamped)
       setIsClamped(el.scrollHeight > el.clientHeight + 1)
     }
   }, [description])
@@ -47,35 +46,38 @@ export function ProjectCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      whileHover={{ y: -8 }}
-      className="group rounded-lg overflow-hidden border border-border hover:border-accent transition-all duration-300 flex flex-col"
+      whileHover={{ y: -6 }}
+      className="group glass-card overflow-hidden flex flex-col glow-card"
       layout
     >
-      <div className="relative overflow-hidden aspect-video bg-gradient-to-br from-card to-muted/30 flex-shrink-0">
+      {/* Image */}
+      <div className="relative overflow-hidden aspect-video bg-gradient-to-br from-accent/5 to-primary/5 flex-shrink-0">
         {image ? (
           <Image
             src={urlFor(image).width(800).height(450).fit('max').url()}
             alt={title}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-contain group-hover:scale-105 transition-transform duration-300"
+            className="object-contain group-hover:scale-105 transition-transform duration-500"
           />
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-accent/20 to-primary/20 flex items-center justify-center">
-            <div className="text-center">
-              <p className="text-muted-foreground">No image available</p>
-            </div>
+          <div className="w-full h-full bg-gradient-to-br from-accent/10 to-primary/10 flex items-center justify-center">
+            <p className="text-muted-foreground text-sm">No image available</p>
           </div>
         )}
         {featured && (
-          <div className="absolute top-4 right-4 bg-accent text-accent-foreground px-3 py-1 rounded-full text-xs font-semibold">
-            Featured
+          <div
+            className="absolute top-3 right-3 bg-accent text-accent-foreground px-3 py-1 rounded-full text-xs font-semibold"
+            style={{ boxShadow: '0 0 10px var(--glow-color)' }}
+          >
+            ✨ Featured
           </div>
         )}
       </div>
 
+      {/* Content */}
       <div className="p-6 flex flex-col flex-grow">
-        <h3 className="text-xl font-bold text-foreground mb-2 line-clamp-2">
+        <h3 className="text-lg font-bold text-foreground mb-2 line-clamp-2">
           {title}
         </h3>
 
@@ -90,7 +92,6 @@ export function ProjectCard({
             {description}
           </p>
 
-          {/* Show more / Show less toggle */}
           {(isClamped || isExpanded) && (
             <button
               onClick={(e) => {
@@ -109,12 +110,13 @@ export function ProjectCard({
           )}
         </div>
 
+        {/* Technologies */}
         {technologies && technologies.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-4">
             {(showAllTech ? technologies : technologies.slice(0, 3)).map((tech, i) => (
               <span
                 key={i}
-                className="px-3 py-1 bg-background text-accent text-xs font-medium rounded-full border border-border"
+                className="px-2.5 py-1 bg-accent/10 text-accent text-xs font-medium rounded-full border border-accent/20"
               >
                 {tech}
               </span>
@@ -125,7 +127,7 @@ export function ProjectCard({
                   e.stopPropagation()
                   setShowAllTech((prev) => !prev)
                 }}
-                className="px-3 py-1 bg-background text-muted-foreground text-xs font-medium rounded-full border border-border hover:border-accent hover:text-accent transition-colors cursor-pointer"
+                className="px-2.5 py-1 bg-muted/30 text-muted-foreground text-xs font-medium rounded-full border border-border hover:border-accent hover:text-accent transition-colors cursor-pointer"
               >
                 {showAllTech ? 'Show less' : `+${technologies.length - 3} more`}
               </button>
@@ -133,7 +135,8 @@ export function ProjectCard({
           </div>
         )}
 
-        <div className="flex gap-3 pt-4 border-t border-border mt-auto">
+        {/* Links */}
+        <div className="flex gap-3 pt-4 border-t border-border/50 mt-auto">
           {liveUrl && (
             <Link
               href={liveUrl}

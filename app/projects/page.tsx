@@ -80,22 +80,25 @@ export default function ProjectsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="mb-16"
+            className="mb-16 text-center"
           >
             <h1 className="text-4xl sm:text-5xl font-bold mb-4 text-foreground">
-              Projects
+              <span className="gradient-text">Projects</span>
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl">
+            <p className="text-base text-muted-foreground max-w-xl mx-auto">
               Explore my portfolio of innovative projects showcasing full-stack development,
               AI/ML applications, and creative problem-solving.
             </p>
-            <div className="w-20 h-1 bg-accent rounded-full mt-6" />
+            <div className="w-16 h-1 bg-accent rounded-full mt-6 mx-auto glow-accent" />
           </motion.div>
 
           {/* Loading State */}
           {loading ? (
             <div className="flex items-center justify-center py-20">
-              <div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin" />
+              <div
+                className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin"
+                style={{ boxShadow: '0 0 12px var(--glow-color)' }}
+              />
             </div>
           ) : projects.length === 0 ? (
             // Empty State
@@ -132,12 +135,12 @@ export default function ProjectsPage() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3 }}
-                  className="flex items-center justify-between pt-12 border-t border-border"
+                  className="flex items-center justify-between pt-12 border-t border-border/30"
                 >
                   <button
                     onClick={handlePreviousPage}
                     disabled={currentPage === 1}
-                    className="flex items-center gap-2 px-4 py-2 rounded-lg border border-border text-foreground hover:bg-card disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl glass text-foreground hover:border-accent/40 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
                   >
                     <ChevronLeft className="w-4 h-4" />
                     Previous
@@ -151,10 +154,10 @@ export default function ProjectsPage() {
                           setCurrentPage(page)
                           window.scrollTo({ top: 0, behavior: 'smooth' })
                         }}
-                        className={`w-10 h-10 rounded-lg font-medium transition-colors ${
+                        className={`w-10 h-10 rounded-xl font-medium transition-all ${
                           page === currentPage
-                            ? 'bg-accent text-accent-foreground'
-                            : 'border border-border text-foreground hover:bg-card'
+                            ? 'bg-accent text-accent-foreground glow-accent'
+                            : 'glass text-foreground hover:border-accent/40'
                         }`}
                       >
                         {page}
@@ -165,7 +168,7 @@ export default function ProjectsPage() {
                   <button
                     onClick={handleNextPage}
                     disabled={currentPage === totalPages}
-                    className="flex items-center gap-2 px-4 py-2 rounded-lg border border-border text-foreground hover:bg-card disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl glass text-foreground hover:border-accent/40 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
                   >
                     Next
                     <ChevronRight className="w-4 h-4" />
@@ -186,9 +189,13 @@ export default function ProjectsPage() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-border py-12 px-4 sm:px-6 lg:px-8 bg-card/30">
+      <footer className="border-t border-border/30 py-10 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto text-center text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Param Hiren Soni. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()}{' '}
+            <span className="gradient-text font-medium">Param Hiren Soni</span>
+            . All rights reserved.
+          </p>
         </div>
       </footer>
     </div>
